@@ -1,4 +1,4 @@
-# JSON Chunker
+# JSON Editor
 
 ## Table of Contents
 
