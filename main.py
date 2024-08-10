@@ -55,33 +55,33 @@ else:
     
 
     def update_json_field(input_file_path, field_name, new_value, output_file_path):
-            try:
-                # Read the existing JSON data
-                with open(input_file_path, 'r') as file:
-                    data = json.load(file)
-                
-                # Check if data is a list of dictionaries
-                if not isinstance(data, list) or not all(isinstance(entry, dict) for entry in data):
-                    raise ValueError("JSON file should contain a list of dictionaries.")
-                
-                # Update the specified field
-                for entry in data:
-                    if field_name in entry:
-                        entry[field_name] = new_value
-
-                # Write the updated data to a new file
-                with open(output_file_path, 'w') as file:
-                    json.dump(data, file, indent=4)
-                
-                print(f"Successfully updated '{field_name}' to '{new_value}' in {output_file_path}")
+        try:
+            # Read the existing JSON data with utf-8 encoding
+            with open(input_file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
             
-            except FileNotFoundError:
-                print(f"Error: The file '{input_file_path}' does not exist.")
-            except json.JSONDecodeError:
-                print("Error: Failed to decode JSON. Ensure the file contains valid JSON.")
-            except ValueError as ve:
-                print(f"Error: {ve}")
-            except Exception as e:
-                print(f"An unexpected error occurred: {e}")
+            # Check if data is a list of dictionaries
+            if not isinstance(data, list) or not all(isinstance(entry, dict) for entry in data):
+                raise ValueError("JSON file should contain a list of dictionaries.")
+            
+            # Update the specified field
+            for entry in data:
+                if field_name in entry:
+                    entry[field_name] = new_value
+
+            # Write the updated data to a new file with utf-8 encoding
+            with open(output_file_path, 'w', encoding='utf-8') as file:
+                json.dump(data, file, indent=4)
+            
+            print(f"Successfully updated '{field_name}' to '{new_value}' in {output_file_path}")
+        
+        except FileNotFoundError:
+            print(f"Error: The file '{input_file_path}' does not exist.")
+        except json.JSONDecodeError:
+            print("Error: Failed to decode JSON. Ensure the file contains valid JSON.")
+        except ValueError as ve:
+            print(f"Error: {ve}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     update_json_field(selected_file, field_name, new_value, output_file_path)
